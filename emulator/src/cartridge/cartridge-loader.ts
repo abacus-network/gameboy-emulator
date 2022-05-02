@@ -6,9 +6,13 @@ import { Mbc3Cartridge } from "@/cartridge/mbc3-cartridge";
 export class CartridgeLoader {
   static TypeOffset = 0x147;
 
-  static FromArrayBuffer(gameData: ArrayBuffer): Cartridge | Mbc1Cartridge | Mbc3Cartridge {
+  static FromArrayBuffer(
+    gameData: ArrayBuffer
+  ): Cartridge | Mbc1Cartridge | Mbc3Cartridge {
     const gameDataView = new DataView(gameData);
-    const type = gameDataView.getUint8(CartridgeLoader.TypeOffset) as CartridgeType;
+    const type = gameDataView.getUint8(
+      CartridgeLoader.TypeOffset
+    ) as CartridgeType;
 
     switch (type) {
       case CartridgeType.ROM:
@@ -24,7 +28,7 @@ export class CartridgeLoader {
       case CartridgeType.MBC3_TIMER_RAM_BATTERY:
         return new Mbc3Cartridge(gameDataView);
       default:
-        alert('oops not ready')
+        alert("oops not ready");
         return new Cartridge(gameDataView);
     }
   }
